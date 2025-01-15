@@ -57,12 +57,38 @@ void insertBST(int data)
     }
 }
 
+void detectDates(Console* root){
+    switch (root->release){
+    case 2017:
+        cout << "Nintentdo Switch release date: ";
+        break;
+    case 1985:
+        cout << "NES release date: ";
+        break;
+    case 1977:
+        cout << "Atari 2600 release date: ";
+        break;
+    case 2005:
+        cout << "Xbox 360 release date: ";
+        break;
+    case 1994:
+        cout << "PS1 release date: ";
+        break;
+    
+    default:
+        break;
+    }
+    cout << root->release << endl;
+}
+
 void inOrderTraversal(Console* root)
 {
     if(root != NULL)
     {
         inOrderTraversal(root->leftChild);
-        cout << root->release << endl;
+        detectDates(root);
         inOrderTraversal(root->rightChild);
     }
 }
+
+int consolesReleases[5];
