@@ -2,6 +2,10 @@
 
 using namespace std;
 
+int consolesReleases[] = {2017, 1985, 1977, 2005, 1994};
+string consolesName[] = {"Nintendo switch", "NES", "Atari 2600", "Xbox 360", "PS1"};
+int amountOfConsoles = 0;
+
 typedef struct console{
     int release;
     string name;
@@ -87,14 +91,14 @@ void inOrderTraversal(Console* root)
     }
 }
 
-
-int consolesReleases[] = {2017, 1985, 1977, 2005, 1994};
-string consolesName[] = {"Nintendo switch", "NES", "Atari 2600", "Xbox 360", "PS1"};
-int amountOfConsoles = 0;
-
 void createBST(){
     for(int i = 0; i < amountOfConsoles; i++)
     {
         insertBST(consolesReleases[i], consolesName[i]);
     }
+}
+
+void addConsole(string consoleNameData, int consoleReleaseData){
+    insertBST(consoleReleaseData, consoleNameData);
+    amountOfConsoles++;
 }

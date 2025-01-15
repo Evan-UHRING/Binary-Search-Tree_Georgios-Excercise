@@ -68,6 +68,53 @@ void displayFoundDate(){
     }
 }
 
+void adder() {
+    string nameData = "NULL";
+    int releaseData = 0;
+    int validation = 3;
+    while (validation != 2 && validation != 1 && validation != 0 || inputException) {
+        clearScreen();
+        cout << "Let's add more consoles ! :D" << endl << endl;
+        
+        if(nameData == "NULL")
+        {
+            cout << "What is the name of this console? -> ";
+            cin >> nameData ;
+        }
+        else if(releaseData == 0)
+        {
+            cout << "Name of the console: " << nameData << endl;
+            handleException();
+            cout << "When was it released? -> ";
+            releaseData = userInputInt(&inputException);
+        }
+        else if(validation != 2 && validation != 1 && validation != 0 || inputException)
+        {
+            cout << "Name of the console: " << nameData << endl;
+            cout << "Its release " << releaseData << "\n" << endl;
+            cout << "1| All gut :D\n"
+                 << "2| NO not gut :(\n"
+                 << "0| Go back (I want to be a monkey)\n" << endl;
+            handleException();
+            cout << "Your choice -> ";
+            validation = userInputInt(&inputException);
+            if(validation != 0 && validation != 1 && validation != 2)
+                inputException = true;
+        }
+        else if(validation == 0)
+            break;
+        if(validation == 2)
+        {
+            nameData = "NULL";
+            releaseData = 0;
+            validation = 3;
+        }
+    }
+    if(validation == 1)
+        addConsole(nameData, releaseData);
+    input = 3;
+}
+
 void finder() {
     while (input != 0 || inputException) {
         clearScreen();
@@ -107,6 +154,7 @@ void mainMenu()
             << "-----------------------------------------\n"
             << "1| Display consoles\n"
             << "2| Find a console\n"
+            << "3| Add more consoles\n"
             << "0| Exit\n" << endl;
         handleException();
 
@@ -117,7 +165,9 @@ void mainMenu()
             displayReleaseDates();
         } else if (input == 2){
             finder();
-        } else if (input != 0){
+        } else if (input == 3){
+            adder();
+        }else if (input != 0){
             inputException = true;
         }
     }
