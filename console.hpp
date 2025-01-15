@@ -4,9 +4,10 @@ using namespace std;
 
 int consolesReleases[] = {2017, 1985, 1977, 2005, 1994};
 string consolesName[] = {"Nintendo switch", "NES", "Atari 2600", "Xbox 360", "PS1"};
-int amountOfConsoles = 0;
+int amountOfConsoles = 5;
 
 typedef struct console{
+    int id;
     int release;
     string name;
     struct console* leftChild;
@@ -15,11 +16,12 @@ typedef struct console{
 
 Console* root = NULL;
 
-void insertBST(int releaseData, string nameData)
+void insertBST(int releaseData, string nameData, int id)
 {
     Console* newNode = new Console;
     newNode->release = releaseData;
     newNode->name = nameData;
+    newNode->id = id;
     newNode->leftChild = NULL;
     newNode->rightChild = NULL;
 
@@ -66,19 +68,21 @@ void detectDates(Console* root){
     cout << root->name << " release date: " << root->release << endl;
 }
 
-Console* findConsole(Console* root, int targetDate){
+Console* findConsole(Console* root, int randNb){
+    
     if (root == NULL) {
         return NULL; // Base case: no node found.
     }
-    if (root->release == targetDate) {
+    //if (root->id == randNb) {
+    if (root->id == randNb) {
         return root; // Found the console with the target date.
     }
     // Search left and right subtrees.
-    Console* leftResult = findConsole(root->leftChild, targetDate);
+    Console* leftResult = findConsole(root->leftChild, randNb);
     if (leftResult != NULL) {
         return leftResult;
     }
-    return findConsole(root->rightChild, targetDate);
+    return findConsole(root->rightChild, randNb);
 }
 
 void inOrderTraversal(Console* root)
@@ -94,11 +98,11 @@ void inOrderTraversal(Console* root)
 void createBST(){
     for(int i = 0; i < amountOfConsoles; i++)
     {
-        insertBST(consolesReleases[i], consolesName[i]);
+        insertBST(consolesReleases[i], consolesName[i], i + 1);
     }
 }
 
 void addConsole(string consoleNameData, int consoleReleaseData){
-    insertBST(consoleReleaseData, consoleNameData);
     amountOfConsoles++;
+    insertBST(consoleReleaseData, consoleNameData, amountOfConsoles);
 }

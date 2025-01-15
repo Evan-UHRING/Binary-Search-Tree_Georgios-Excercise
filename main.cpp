@@ -1,4 +1,4 @@
-#include "display.cpp"
+#include "display.hpp"
 
 
 void init() {

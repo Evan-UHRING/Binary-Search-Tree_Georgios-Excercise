@@ -47,22 +47,41 @@ void handleException()
         cout << endl;
 }
 
-void displayFoundDate(){
+Console* randomConsole() {
+    if (root == NULL) {
+        cout << "Error: The tree is empty. No consoles available." << endl;
+        return nullptr;
+    }
+    int i = rand() % amountOfConsoles + 1;
+    Console* result = findConsole(root, i);
+    if (result == NULL) {
+        cout << "Error: Could not find a console for release date " << result->release << "." << endl;
+    }
+    return result;
+}
+
+void displayFoundDate(Console* result){
+    bool success = false;
     while (input != 0 || inputException){
         clearScreen();
-        Console* result = findConsole(root, input);
-        if (result != NULL) {
+        if (input == result->release){
+            cout << "Well done!" << endl;
             detectDates(result);
-            inputException = false;
+            success = true;
         } else {
             cout << "Console with release date " << input << " not found.\n";
+            success = false;
         }
+
+        inputException = false;
 
         cout << endl;
         handleException();
-        cout << "0| Go to main menu" << endl;
-        cout << "Or look for another console: ";
+        cout << "0| Go to main menu " << endl;
+        if (!success)
+            cout << "Or retry look for the release date of " << result->name << ": ";
         input = userInputInt(&inputException);
+        
         if(input != 0)
             inputException = true;
     }
@@ -118,15 +137,21 @@ void adder() {
 void finder() {
     while (input != 0 || inputException) {
         clearScreen();
-        cout << "Look for a release date" << endl << endl;
-        handleException();
-        cout << "0| Go to main menu -> ";
-        input = userInputInt(&inputException);
+        Console* result = randomConsole();
+        if (result == nullptr) {
+            break;
+        }
         
-        if (input != 0) 
+        cout << "Look for the release date of " << result->name << endl << endl;
+        handleException();
+        cout << "Answer -> ";
+        input = userInputInt(&inputException);
+
+        if (input != 0)
             inputException = true;
 
-        displayFoundDate();
+        displayFoundDate(result);
+        break;
     }
     input = 2;
 }
