@@ -4,17 +4,18 @@ using namespace std;
 
 typedef struct console{
     int release;
-    int sales;
+    string name;
     struct console* leftChild;
     struct console* rightChild;
 } Console;
 
 Console* root = NULL;
 
-void insertBST(int data)
+void insertBST(int releaseData, string nameData)
 {
     Console* newNode = new Console;
-    newNode->release = data;
+    newNode->release = releaseData;
+    newNode->name = nameData;
     newNode->leftChild = NULL;
     newNode->rightChild = NULL;
 
@@ -33,7 +34,7 @@ void insertBST(int data)
         {
             parent = current;
 
-            if(data < parent->release) // go to the left subtree
+            if(releaseData < parent->release) // go to the left subtree
             {
                 current = current->leftChild;
 
@@ -58,16 +59,7 @@ void insertBST(int data)
 }
 
 void detectDates(Console* root){
-    switch (root->release) {
-        case 2017: cout << "Nintendo Switch release date: "; break;
-        case 1985: cout << "NES release date: "; break;
-        case 1977: cout << "Atari 2600 release date: "; break;
-        case 2005: cout << "Xbox 360 release date: "; break;
-        case 1994: cout << "PS1 release date: "; break;
-        default: cout << "Console release date: "; break;
-    }
-    cout << root->release << endl;
-    
+    cout << root->name << " release date: " << root->release << endl;
 }
 
 Console* findConsole(Console* root, int targetDate){
@@ -95,4 +87,14 @@ void inOrderTraversal(Console* root)
     }
 }
 
-int consolesReleases[5];
+
+int consolesReleases[] = {2017, 1985, 1977, 2005, 1994};
+string consolesName[] = {"Nintendo switch", "NES", "Atari 2600", "Xbox 360", "PS1"};
+int amountOfConsoles = 0;
+
+void createBST(){
+    for(int i = 0; i < amountOfConsoles; i++)
+    {
+        insertBST(consolesReleases[i], consolesName[i]);
+    }
+}

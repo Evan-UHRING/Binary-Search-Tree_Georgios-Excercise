@@ -60,7 +60,8 @@ void displayFoundDate(){
 
         cout << endl;
         handleException();
-        cout << "0| Go to main menu? -> ";
+        cout << "0| Go to main menu" << endl;
+        cout << "Or look for another console: ";
         input = userInputInt(&inputException);
         if(input != 0)
             inputException = true;
