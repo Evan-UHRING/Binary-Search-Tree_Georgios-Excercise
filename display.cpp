@@ -47,10 +47,47 @@ void handleException()
         cout << endl;
 }
 
+void displayFoundDate(){
+    while (input != 0 || inputException){
+        clearScreen();
+        Console* result = findConsole(root, input);
+        if (result != NULL) {
+            detectDates(result);
+            inputException = false;
+        } else {
+            cout << "Console with release date " << input << " not found.\n";
+        }
+
+        cout << endl;
+        handleException();
+        cout << "0| Go to main menu? -> ";
+        input = userInputInt(&inputException);
+        if(input != 0)
+            inputException = true;
+    }
+}
+
+void finder() {
+    while (input != 0 || inputException) {
+        clearScreen();
+        cout << "Look for a release date" << endl << endl;
+        handleException();
+        cout << "0| Go to main menu -> ";
+        input = userInputInt(&inputException);
+        
+        if (input != 0) 
+            inputException = true;
+
+        displayFoundDate();
+    }
+    input = 2;
+}
+
 void displayReleaseDates(){
     while (input != 0 || inputException){
         clearScreen();
         inOrderTraversal(root);
+        cout << endl;
         handleException();
         cout << "0| Go to main menu? -> ";
         input = userInputInt(&inputException);
@@ -67,7 +104,8 @@ void mainMenu()
         clearScreen();
         cout << "          Welcome on Console BST!\n"
             << "-----------------------------------------\n"
-            << "1| Display release dates\n"
+            << "1| Display consoles\n"
+            << "2| Find a console\n"
             << "0| Exit\n" << endl;
         handleException();
 
@@ -76,7 +114,8 @@ void mainMenu()
 
         if(input == 1){
             displayReleaseDates();
-
+        } else if (input == 2){
+            finder();
         } else if (input != 0){
             inputException = true;
         }
