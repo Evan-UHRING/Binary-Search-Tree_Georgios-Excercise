@@ -73,17 +73,13 @@ void displayFoundDate(Console* result){
             success = false;
         }
 
-        inputException = false;
-
         cout << endl;
-        handleException();
-        cout << "0| Go to main menu " << endl;
+        cout << "0| Go to main menu ";
         if (!success)
-            cout << "Or retry look for the release date of " << result->name << ": ";
+            cout << "\nOr retry look for the release date of " << result->name << ": \n" << endl;
+        handleException();
+        cout << "Your choice -> ";
         input = userInputInt(&inputException);
-        
-        if(input != 0)
-            inputException = true;
     }
 }
 
@@ -147,9 +143,6 @@ void finder() {
         cout << "Answer -> ";
         input = userInputInt(&inputException);
 
-        if (input != 0)
-            inputException = true;
-
         displayFoundDate(result);
         break;
     }
@@ -192,7 +185,7 @@ void mainMenu()
             finder();
         } else if (input == 3){
             adder();
-        }else if (input != 0){
+        } else if (input != 0){
             inputException = true;
         }
     }
