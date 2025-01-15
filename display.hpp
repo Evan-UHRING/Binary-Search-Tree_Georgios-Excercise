@@ -149,6 +149,30 @@ void finder() {
     input = 2;
 }
 
+void deleter(){
+    while (input != 0 || inputException) {
+        clearScreen();
+        cout << "Which console do you want to delete? Type its release date." << endl << endl;
+        inOrderTraversal(root);
+        cout << endl;
+        handleException();
+        cout << "0| Go to main menu" << endl;
+        cout << "-> ";
+        input = userInputInt(&inputException);
+
+        for (int i = 0; i < amountOfConsoles; i++)
+        {
+            if (input == consolesReleases[i])
+            {
+                deleteConsole(root, input);
+                break;
+            }
+        }
+
+    }
+    input = 3;
+}
+
 void displayReleaseDates(){
     while (input != 0 || inputException){
         clearScreen();
@@ -173,6 +197,7 @@ void mainMenu()
             << "1| Display consoles\n"
             << "2| Find a console\n"
             << "3| Add more consoles\n"
+            << "4| Delete consoles\n"
             << "0| Exit\n" << endl;
         handleException();
 
@@ -185,6 +210,8 @@ void mainMenu()
             finder();
         } else if (input == 3){
             adder();
+        } else if (input == 4){
+            deleter();
         } else if (input != 0){
             inputException = true;
         }

@@ -106,3 +106,50 @@ void addConsole(string consoleNameData, int consoleReleaseData){
     amountOfConsoles++;
     insertBST(consoleReleaseData, consoleNameData, amountOfConsoles);
 }
+
+Console* getSuccessor(Console* curr){
+    curr = curr->rightChild;
+    if (curr != nullptr && curr->leftChild != nullptr)
+        curr = curr->leftChild;
+    return curr;
+}
+
+Console* deleteConsole(Console* root, int release){
+    
+    if (root == nullptr)
+        return root;
+
+    // If release to be searched is in a subtree
+    if (root->release > release)
+        root->leftChild = deleteConsole(root->leftChild, release);
+    else if (root->release < release)
+        root->rightChild = deleteConsole(root->rightChild, release);
+
+    // If root matches with the given release
+    else {
+
+        // Cases when root has 0 children
+        
+        // or only right child
+        if (root->leftChild == nullptr) {
+            Console* temp = root->rightChild;
+            delete root;
+            return temp;
+        }
+
+        // When root has only left child
+        if (root->rightChild == nullptr) {
+            Console* temp = root->leftChild;
+            delete root;
+            return temp;
+        }
+
+        // When both children are present
+        Console* succ = getSuccessor(root);
+        root->release = succ->release;
+        root->rightChild = deleteConsole(root->rightChild, succ->release);
+    }
+    amountOfConsoles--;
+    return root;
+    
+}
